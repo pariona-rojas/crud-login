@@ -5,7 +5,7 @@
     if(isset($_SESSION['user_id'])){
         header('Location: /web');
     }
-    require 'db.php';
+    require 'database/db.php';
 
     if(!empty($_POST['email']) && !empty($_POST['password'])){
         $records = $connn->prepare('SELECT id, email, password FROM usuario WHERE email=:email');

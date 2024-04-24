@@ -1,4 +1,5 @@
-<?php include("db-crud.php") ?>
+<?php include("database/db-crud.php") ?>
+<?php include("function.php")  ?>
 <?php include("includes/header.php") ?>
     <div class="container p-4">
         <div class="row">
@@ -10,7 +11,7 @@
                     </div>
                 <?php session_unset(); }?>    
                 <div class="card card-body">
-                    <form action="save.php" method="POST">
+                    <form action="save.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="text" name="parte" class="form-control" placeholder="Parte" autofocus>  
                         </div>
@@ -38,6 +39,11 @@
                         <div class="form-group">
                             <textarea name="resumen" rows="2" placeholder="Resumen"></textarea>  
                         </div>
+
+                        <div class="form-group">  
+                        <input type="file" name="archivo" class="form-control" accept="image/*"> <!-- Acepta solo imágenes --> 
+                        </div>
+
                         <input type="submit" class="btn btn-success btn-block" name="registrar" value="Registrar">
                     </form>
                 </div>
@@ -52,6 +58,7 @@
                             <th>Hora</th>
                             <th>Zona</th>
                             <th>Actions</th>
+                            <th>Archivo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,6 +66,7 @@
                             $query = "SELECT * FROM tabla";
                             $consulta = mysqli_query($conn, $query);
                             while($row=mysqli_fetch_array($consulta)){ ?>
+                                <?php $ruta_archivo = obtener_ruta_archivo_desde_bd($conn, $row['id']); ?>
                                 <tr>
                                     <td><?php echo $row['parte'] ?></td>
                                     <td><?php echo $row['delito'] ?></td>
@@ -66,11 +74,16 @@
                                     <td><?php echo $row['hora'] ?></td>
                                     <td><?php echo $row['zona'] ?></td>
                                     <td>
-                                        <a href="edit.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
+                                        <a href="crud/edit.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
                                             <i class="fas fa-marker" ></i>
                                         </a>
-                                        <a href="delete.php?id=<?php echo $row['id']?>" class="btn btn-danger">
-                                        <i class="far fa-trash-alt" ></i>
+                                        <a href="crud/delete.php?id=<?php echo $row['id']?>" class="btn btn-danger">
+                                            <i class="far fa-trash-alt" ></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="show.php?ruta=<?php echo $ruta_archivo; ?>" target="_blank">
+                                        <i class="far fa-file" ></i>
                                         </a>
                                     </td>
                                 </tr>

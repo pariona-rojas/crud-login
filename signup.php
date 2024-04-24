@@ -1,22 +1,28 @@
 <?php 
-    require 'db.php';
+require 'database/db.php';
 
-    $message = '';
+$message = '';
 
-    if(!empty($_POST['email']) && !empty($_POST['password'])){
+if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm_password'])){
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+
+    if($password === $confirm_password) {
         $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
         $stmt = $connn->prepare($sql);
-        $stmt->bindParam(':email',$_POST['email']);
-        $password = password_hash($_POST['password'], PASSWORD_ARGON2ID);
-        $stmt->bindParam(':password',$password);
+        $stmt->bindParam(':email', $_POST['email']);
+        $hashed_password = password_hash($password, PASSWORD_ARGON2ID);
+        $stmt->bindParam(':password', $hashed_password);
     
         if($stmt->execute()){
             $message = "Succesfully created new user";   
-        } else{
+        } else {
             $message = "Sorry there must have been an issue creating your account";
         }
+    } else {
+        $message = "Passwords do not match";
     }
-
+}
 ?>
 
 <!DOCTYPE html>

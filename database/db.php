@@ -4,7 +4,7 @@
 $server = 'localhost';
 $username = 'root';
 $password = '';
-$database = 'data';
+$database = 'datax';
 
 
 try{

@@ -1,6 +1,6 @@
 <?php
 
-include("db-crud.php");
+include("../database/db-crud.php");
 
 if(isset($_GET["id"])){
     $id = $_GET['id'];
@@ -23,14 +23,13 @@ if(isset($_GET["id"])){
         $_SESSION["message"] ='Incidencia Actualizada Correctamente';
         $_SESSION["message_type"] ='warning';
         
-        header("Location: index.php");
+        header("Location: ../index.php");
     }
-
 }
 
 ?>
 
-<?php include("includes/header.php") ?>
+<?php include("../includes/header.php") ?>
 
 <div class="container p-4">
     <div class="row">
@@ -55,4 +54,4 @@ if(isset($_GET["id"])){
     </div>
 </div>
 
-<?php include("includes/footer.php") ?>
+<?php include("../includes/footer.php") ?>

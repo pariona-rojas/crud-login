@@ -1,6 +1,6 @@
 <?php 
 
-include("db-crud.php");
+include("database/db-crud.php");
 
 if (isset($_POST['registrar'])){
     $parte = $_POST['parte'];
@@ -14,17 +14,25 @@ if (isset($_POST['registrar'])){
     $resumen = $_POST['resumen'];
 
 
-    // Convertir la fecha al formato "aa/mm/dd"
-    $fecha_array = explode('/', $fecha);
-    $dia = $fecha_array[0];
-    $mes = $fecha_array[1];
-    $anio = $fecha_array[2];
+    // Procesamiento del archivo
+    $archivo_nombre = $_FILES['archivo']['name']; // Obtener el nombre del archivo
+    $archivo_temporal = $_FILES['archivo']['tmp_name']; // Obtener la ubicación temporal del archivo
 
-    // Construir la fecha en el formato "aa/mm/dd"
-    $fecha_convert = $anio . '-' . $mes . '-' . $dia;
+    // Verificar errores en la carga del archivo
+    // if ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
+    //     die("Error al cargar el archivo. Código de error: " . $_FILES['archivo']['error']);
+    // }
+
+    // Mover el archivo a la carpeta de destino (archivos/)
+    $ruta_archivo = "archivos/" . $archivo_nombre;
+    move_uploaded_file($archivo_temporal, $ruta_archivo);
+
+
     
-    $query="INSERT INTO tabla(parte, delito, fecha, hora, grupo, direccion, zona, efectivo, resumen) 
-    VALUES ('$parte', '$delito', '$fecha_convert', '$hora', '$grupo', '$direccion', '$zona', '$efectivo', '$resumen')";
+    // Insertar la ruta del archivo en la base de datos
+    $query = "INSERT INTO tabla(parte, delito, fecha, hora, grupo, direccion, zona, efectivo, resumen, archivo) 
+    VALUES ('$parte', '$delito', '$fecha', '$hora', '$grupo', '$direccion', '$zona', '$efectivo', '$resumen', '$ruta_archivo')";
+
     $result = mysqli_query($conn, $query);
     if (!$result){
         die("Query Failed");
