@@ -1,4 +1,6 @@
 <?php
+
+
 if(isset($_GET['ruta'])){
     $ruta_imagen = $_GET['ruta'];
     echo "Ruta de la imagen: $ruta_imagen"; // Comprueba que la ruta sea correcta
@@ -6,4 +8,8 @@ if(isset($_GET['ruta'])){
 } else {
     echo "Ruta de la imagen no proporcionada";
 }
+
 ?>
+
+
+

@@ -11,7 +11,7 @@
                     </div>
                 <?php session_unset(); }?>    
                 <div class="card card-body">
-                    <form action="save.php" method="POST" enctype="multipart/form-data">
+                    <form action="crud/save.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="text" name="parte" class="form-control" placeholder="Parte" autofocus>  
                         </div>
@@ -39,7 +39,6 @@
                         <div class="form-group">
                             <textarea name="resumen" rows="2" placeholder="Resumen"></textarea>  
                         </div>
-
                         <div class="form-group">  
                         <input type="file" name="archivo" class="form-control" accept="image/*"> <!-- Acepta solo imágenes --> 
                         </div>

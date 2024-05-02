@@ -1,6 +1,6 @@
 <?php 
 
-include("database/db-crud.php");
+include("../database/db-crud.php");
 
 if (isset($_POST['registrar'])){
     $parte = $_POST['parte'];
@@ -24,14 +24,14 @@ if (isset($_POST['registrar'])){
     // }
 
     // Mover el archivo a la carpeta de destino (archivos/)
-    $ruta_archivo = "archivos/" . $archivo_nombre;
+    $ruta_archivo = "../archivos/" . $archivo_nombre;
     move_uploaded_file($archivo_temporal, $ruta_archivo);
 
+    // Insertar la ruta relativa del archivo en la base de datos
+    $ruta_archivo_bd = "archivos/" . $archivo_nombre;
 
-    
-    // Insertar la ruta del archivo en la base de datos
     $query = "INSERT INTO tabla(parte, delito, fecha, hora, grupo, direccion, zona, efectivo, resumen, archivo) 
-    VALUES ('$parte', '$delito', '$fecha', '$hora', '$grupo', '$direccion', '$zona', '$efectivo', '$resumen', '$ruta_archivo')";
+    VALUES ('$parte', '$delito', '$fecha', '$hora', '$grupo', '$direccion', '$zona', '$efectivo', '$resumen', '$ruta_archivo_bd')";
 
     $result = mysqli_query($conn, $query);
     if (!$result){
@@ -41,8 +41,7 @@ if (isset($_POST['registrar'])){
     $_SESSION['message'] = 'Incidencia registrada correctamente';
     $_SESSION['message_type'] = 'success';
 
-
-    header("location: index.php");
+    header("location: ../index.php");
 };
 
 ?>

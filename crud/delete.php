@@ -1,6 +1,6 @@
 <?php
 
-include("db-crud.php");
+include("../database/db-crud.php");
 
 if(isset($_GET["id"])){
     $id = $_GET['id'];
@@ -11,7 +11,7 @@ if(isset($_GET["id"])){
     }
     $_SESSION['message'] = 'Incidencia Removida Satisfactoriamente';
     $_SESSION['message_type'] = 'danger';
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 
 ?>
