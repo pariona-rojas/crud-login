@@ -18,7 +18,6 @@
             padding: 20px 0; /* Agrega espacio en la parte superior e inferior del encabezado */
             margin-bottom: 0px; /* Ajusta el margen inferior del encabezado */
         }
-
         header a {
             font-size: 24px; /* Aumenta el tamaño de la letra */
             text-decoration: none; /* Elimina el subrayado del enlace */
@@ -30,8 +29,8 @@
         }
     </style>
 </head>
-<body>
 
+<body>
 <header>
     <a href="/web">Municipalidad Provincial de Huamanga</a>
 </header>
@@ -39,4 +38,5 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdhxCNZV5zntw3O3U5u6KZvlQN+e0ebn54sN7CaqJTx2l23JQK6GknpZ1x8" crossorigin="anonymous"></script>
 </body>
+
 </html>

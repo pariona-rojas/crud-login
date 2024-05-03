@@ -41,7 +41,7 @@ if (isset($_POST['registrar'])){
     $_SESSION['message'] = 'Incidencia registrada correctamente';
     $_SESSION['message_type'] = 'success';
 
-    header("location: ../index.php");
+    header("location: ../register.php");
 };
 
 ?>

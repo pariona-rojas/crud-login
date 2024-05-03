@@ -1,5 +1,4 @@
 <?php
-
 include("../database/db-crud.php");
 
 if(isset($_GET["id"])){
@@ -20,15 +19,12 @@ if(isset($_GET["id"])){
         $resumen = $_POST['resumen'];
         $query = "UPDATE tabla SET parte='$parte', delito='$delito', resumen='$resumen' WHERE id=$id";
         mysqli_query($conn, $query);
-        $_SESSION["message"] ='Incidencia Actualizada Correctamente';
-        $_SESSION["message_type"] ='warning';
-        
-        header("Location: ../index.php");
+        $_SESSION["message"] = 'Incidencia Actualizada Correctamente';
+        $_SESSION["message_type"] = 'success';
+        header("Location: ../page.php");
     }
 }
-
 ?>
-
 <?php include("../includes/header.php") ?>
 
 <div class="container p-4">
