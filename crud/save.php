@@ -1,6 +1,6 @@
 <?php 
 
-include("../database/db-crud.php");
+include("../database/db.php");
 
 if (isset($_POST['registrar'])){
     $parte = $_POST['parte'];

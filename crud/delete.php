@@ -1,6 +1,6 @@
 <?php
 
-include("../database/db-crud.php");
+include("../database/db.php");
 
 if(isset($_GET["id"])){
     $id = $_GET['id'];

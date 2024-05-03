@@ -1,5 +1,4 @@
 <?php 
-session_start();
 require 'database/db.php';
 
 // Verificar si el usuario está autenticado
@@ -11,7 +10,7 @@ if(isset($_SESSION['user_id'])){
 
     $user = null;
 
-    if(count($results) > 0 ){
+    if(count($results) > 0){
         $user = $results;
     } 
 

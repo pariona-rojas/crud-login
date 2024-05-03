@@ -32,7 +32,7 @@
 
 <body>
 <header>
-    <a href="/web">Municipalidad Provincial de Huamanga</a>
+    <a href="/web">Municipalidad Provincial de Ayacucho</a>
 </header>
 
 <!-- Bootstrap JS -->
