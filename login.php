@@ -1,26 +1,25 @@
-<?php 
-
-    session_start();
-
+<?php
+    // session_start(); // No olvides descomentar esta línea si necesitas usar sesiones.
+    require 'database/db.php';
+    
     if(isset($_SESSION['user_id'])){
         header('Location: /web');
     }
-    require 'database/db.php';
-
+    
     if(!empty($_POST['email']) && !empty($_POST['password'])){
         $records = $connn->prepare('SELECT id, email, password FROM usuario WHERE email=:email');
         $records->bindParam(':email',$_POST['email']);
         $records->execute();
         $results = $records->fetch(PDO::FETCH_ASSOC);
-
-        $message = '';
-
-        if(count($results) > 0 && password_verify($_POST['password'], $results['password'])){
+        
+        if($results && password_verify($_POST['password'], $results['password'])){
             $_SESSION['user_id']=$results['id'];
             header('Location: /web');
         } else{
-            $message = 'Sorry your credential do not match';
+            $message = 'Sorry, your credentials do not match';
         }
+    } else {
+        $message = 'Please enter both email and password';
     }
 ?>
 

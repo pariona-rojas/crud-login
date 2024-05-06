@@ -8,16 +8,28 @@ if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confi
     $confirm_password = $_POST['confirm_password'];
 
     if($password === $confirm_password) {
-        $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
-        $stmt = $connn->prepare($sql);
-        $stmt->bindParam(':email', $_POST['email']);
-        $hashed_password = password_hash($password, PASSWORD_ARGON2ID);
-        $stmt->bindParam(':password', $hashed_password);
-    
-        if($stmt->execute()){
-            $message = "Succesfully created new user";   
+        // Verificar si el correo electrónico está registrado en la tabla 'logeo'
+        $checkEmailQuery = $connn->prepare('SELECT id FROM logeo WHERE correo=:email');
+        $checkEmailQuery->bindParam(':email', $_POST['email']);
+        $checkEmailQuery->execute();
+        $emailExists = $checkEmailQuery->fetchColumn();
+
+        if($emailExists){
+            // El correo electrónico está registrado en 'logeo', proceder con el registro del usuario
+            $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
+            $stmt = $connn->prepare($sql);
+            $stmt->bindParam(':email', $_POST['email']);
+            $hashed_password = password_hash($password, PASSWORD_ARGON2ID);
+            $stmt->bindParam(':password', $hashed_password);
+        
+            if($stmt->execute()){
+                $message = "Succesfully created new user";   
+            } else {
+                $message = "Sorry there must have been an issue creating your account";
+            }
         } else {
-            $message = "Sorry there must have been an issue creating your account";
+            // El correo electrónico no está registrado en 'logeo'
+            $message = "Email not registered";
         }
     } else {
         $message = "Passwords do not match";
