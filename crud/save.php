@@ -1,5 +1,4 @@
 <?php 
-
 include("../database/db.php");
 
 if (isset($_POST['registrar'])){
@@ -13,22 +12,22 @@ if (isset($_POST['registrar'])){
     $efectivo = $_POST['efectivo'];
     $resumen = $_POST['resumen'];
 
-
     // Procesamiento del archivo
-    $archivo_nombre = $_FILES['archivo']['name']; // Obtener el nombre del archivo
+    $archivo_nombre_original = $_FILES['archivo']['name']; // Obtener el nombre original del archivo
     $archivo_temporal = $_FILES['archivo']['tmp_name']; // Obtener la ubicación temporal del archivo
+    $extension_archivo = pathinfo($archivo_nombre_original, PATHINFO_EXTENSION); // Obtener la extensión del archivo
 
-    // Verificar errores en la carga del archivo
-    // if ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
-    //     die("Error al cargar el archivo. Código de error: " . $_FILES['archivo']['error']);
-    // }
+    // Generar un nombre de archivo basado en la fecha y hora proporcionadas
+    $nombre_archivo = $efectivo . "_" . str_replace('-', '', $fecha) . "_" . str_replace(':', '', $hora) . ".$extension_archivo";
 
-    // Mover el archivo a la carpeta de destino (archivos/)
-    $ruta_archivo = "../archivos/" . $archivo_nombre;
-    move_uploaded_file($archivo_temporal, $ruta_archivo);
+    // Definir la ruta de destino
+    $ruta_destino = "../archivos/" . $nombre_archivo;
+
+    // Mover el archivo a la carpeta de destino
+    move_uploaded_file($archivo_temporal, $ruta_destino);
 
     // Insertar la ruta relativa del archivo en la base de datos
-    $ruta_archivo_bd = "archivos/" . $archivo_nombre;
+    $ruta_archivo_bd = "archivos/" . $nombre_archivo;
 
     $query = "INSERT INTO tabla(parte, delito, fecha, hora, grupo, direccion, zona, efectivo, resumen, archivo) 
     VALUES ('$parte', '$delito', '$fecha', '$hora', '$grupo', '$direccion', '$zona', '$efectivo', '$resumen', '$ruta_archivo_bd')";
@@ -42,6 +41,5 @@ if (isset($_POST['registrar'])){
     $_SESSION['message_type'] = 'success';
 
     header("location: ../register.php");
-};
-
+}
 ?>

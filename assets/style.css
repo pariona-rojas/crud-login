@@ -1,0 +1,58 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+
+input[type="text"], input[type="password"]{
+    outline: none;
+    padding: 20px;
+    display: block;
+    width: 300px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    margin: 20px auto
+}
+
+input[type="submit"]{
+    padding: 10px;
+    color: #fff;
+    background: #6fbed8;
+    width: 320px;
+    margin: 20px auto;
+    margin-top: 0;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover{
+    background-color: #14eb00;
+}
+
+header a{
+    text-decoration: none;
+    color: #333;
+}
+
+.btn-oval {
+    border-radius: 30px; /* Redondea los bordes para que los botones sean ovales */
+    padding: 10px 20px; /* Ajusta el espaciado interno de los botones */
+    font-size: 16px; /* Tamaño de la fuente */
+    text-transform: uppercase; /* Convierte el texto en mayúsculas */
+    letter-spacing: 1px; /* Aumenta el espaciado entre letras */
+    margin: 5px; /* Añade un pequeño margen alrededor de los botones */
+    background-color: rgba(212, 228, 214, 0.952); /* Cambia el color de fondo de los botones a blanco */
+    color: #090799; /* Cambia el color del texto de los botones a celeste */
+    border: 2px solid #1a0eb8; /* Agrega un borde celeste a los botones */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave a los botones */
+}
+
+.custom-paragraph {
+    font-size: 20px; /* Tamaño de fuente más grande */
+    font-weight: bold; /* Negrita */
+    font-style: italic; /* Cursiva */
+    color: black; /* Color de texto negro */
+}
+

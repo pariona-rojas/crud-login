@@ -6,16 +6,8 @@ include("includes/header.php");
 // Establecer el número de registros por página
 $registros_por_pagina = 10;
 
-// Calcular el número total de registros
-$query_total_registros = "SELECT COUNT(*) as total FROM tabla";
-$resultado_total_registros = mysqli_query($conn, $query_total_registros);
-$total_registros = mysqli_fetch_assoc($resultado_total_registros)['total'];
-
-// Calcular el número total de páginas
-$total_paginas = ceil($total_registros / $registros_por_pagina);
-
-// Calcular la página actual, estableciendo la última página si no se proporciona ninguna página
-$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : $total_paginas;
+// Calcular la página actual
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
 // Calcular el índice del primer registro para la consulta SQL
 $indice_primer_registro = ($pagina - 1) * $registros_por_pagina;
@@ -33,7 +25,7 @@ $consulta = mysqli_query($conn, $query);
 
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-3 bg-light"> <!-- Aquí agregamos la clase bg-light para el panel de filtrado -->
+        <div class="col-md-3">
             <?php if(isset($_SESSION['message'])) {?>
             <div class="alert alert-<?=$_SESSION['message_type']?> alert-dismissible fade show" role="alert">
                 <?= $_SESSION['message']?>
@@ -42,17 +34,17 @@ $consulta = mysqli_query($conn, $query);
             <?php unset($_SESSION['message']); }?>
             
             <!-- Formulario de filtrado por rango de fechas -->
-            <div class="card" style="background-color: #f5deb3;"> <!-- Cambiamos el color de fondo a café clarísimo -->
+            <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Filtrar por Fecha</h5>
                     <form action="" method="GET">
                         <div class="mb-3">
                             <label for="fecha_inicio" class="form-label">Fecha de inicio:</label>
-                            <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" style="background-color: #f5deb3;"> <!-- Cambiamos el color de fondo a café clarísimo -->
+                            <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="fecha_fin" class="form-label">Fecha de fin:</label>
-                            <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" style="background-color: #f5deb3;"> <!-- Cambiamos el color de fondo a café clarísimo -->
+                            <input type="date" id="fecha_fin" name="fecha_fin" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">Filtrar</button>
                     </form>
@@ -62,7 +54,7 @@ $consulta = mysqli_query($conn, $query);
 
         <div class="col-md-9">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" style="background-color: #d1e7dd;">
+                <table class="table table-bordered table-hover">
                     <thead class="table-dark">
                         <tr>
                             <th>Parte</th>
@@ -77,7 +69,7 @@ $consulta = mysqli_query($conn, $query);
                     <tbody>
                         <?php while($row=mysqli_fetch_array($consulta)){ ?>
                             <?php $ruta_archivo = obtener_ruta_archivo_desde_bd($conn, $row['id']); ?>
-                            <tr style="border-top: 2px solid #000;"> <!-- Cambiamos el color del borde a negro -->
+                            <tr>
                                 <td><?php echo $row['parte'] ?></td>
                                 <td><?php echo $row['delito'] ?></td>
                                 <td><?php echo $row['fecha'] ?></td>
@@ -101,6 +93,14 @@ $consulta = mysqli_query($conn, $query);
                     </tbody>
                 </table>
             </div>
+            <?php
+            // Calcular el número total de registros y páginas
+            $query_total_registros = "SELECT COUNT(*) as total FROM tabla";
+            $resultado_total_registros = mysqli_query($conn, $query_total_registros);
+            $total_registros = mysqli_fetch_assoc($resultado_total_registros)['total'];
+            $total_paginas = ceil($total_registros / $registros_por_pagina);
+            ?>
+
             <?php if ($total_paginas > 1): ?>
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
@@ -116,11 +116,6 @@ $consulta = mysqli_query($conn, $query);
     </div>
 </div>
 
+
 <?php include("includes/footer.php") ?>
-
-
-
-
-
-
 

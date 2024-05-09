@@ -1,32 +1,33 @@
 <?php 
-    include("database/db.php");
-    include("function.php");
-    include("includes/header.php");
+include("database/db.php");
+include("function.php");
+include("includes/header.php");
 
-    if(isset($_SESSION['message'])) {
-        ?>
-        <div class="alert alert-<?=$_SESSION['message_type']?> alert-dismissible fade show" role="alert">
-            <?= $_SESSION['message']?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php 
-        #session_unset(); 
-    }?>    
+if(isset($_SESSION['message'])) {
+    ?>
+    <div class="alert alert-<?=$_SESSION['message_type']?> alert-dismissible fade show" role="alert">
+        <?= $_SESSION['message']?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php 
+    #session_unset(); 
+}?>    
 
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-body">
+<div class="container p-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" style="background-color: #d3f8e2;">
+                <div class="card-body">
+                    <h2 class="text-center mb-4" style="color: #000; font-weight: bold;">Registrar Datos</h2>
                     <form action="crud/save.php" method="POST" enctype="multipart/form-data">
-
-                        <div class="form-group">
-                            <input type="text" name="parte" class="form-control" placeholder="Parte" autofocus>  
+                        <div class="mb-3">
+                            <label for="parte" class="form-label" style="color: #000; font-weight: bold;">Parte</label>
+                            <input type="text" name="parte" class="form-control" style="background-color: #fff;" placeholder="Parte" autofocus>  
                         </div>
-                        
-                        <div class="form-group">
-                        <label for="delito">Delito</label>
-                            <select name="delito" class="form-control" required>
-                                <option value="">Selecciona el tipo de delito</option>
+                        <div class="mb-3">
+                            <label for="delito" class="form-label" style="color: #000; font-weight: bold;">Delito</label>
+                            <select name="delito" class="form-control" style="background-color: #fff;" required>
+                            <option value="">Selecciona el tipo de delito</option>
                                 <option value="Accidentes de tránsito">Accidentes de tránsito</option>
                                 <option value="Actos impúdicos o contra el honor">Actos impúdicos o contra el honor</option>
                                 <option value="Agresión verbal y psicológica">Agresión verbal y psicológica</option>
@@ -67,38 +68,35 @@
                                 <option value="Violencia familiar">Violencia familiar</option>
                             </select> 
                         </div>
-
-                        <div class="form-group">
-                            <label for="fecha">Fecha</label>
-                            <div class="input-group">
-                                <input type="text" name="fecha" id="datepicker" class="form-control" placeholder="Selecciona una fecha" required>
-                                <div class="input-group-append">
+                        <div class="row">
+                            <div class="col">
+                                <label for="fecha" class="form-label" style="color: #000; font-weight: bold;">Fecha</label>
+                                <div class="input-group">
+                                    <input type="text" name="fecha" id="datepicker" class="form-control" style="background-color: #fff;" placeholder="Selecciona una fecha" required>
                                     <button class="btn btn-outline-secondary" type="button" id="calendarBtn"><i class="fa fa-calendar"></i></button>
                                 </div>
                             </div>
+                            <div class="col">
+                                <label for="hora" class="form-label" style="color: #000; font-weight: bold;">Hora</label>
+                                <input type="text" name="hora" class="form-control" style="background-color: #fff;" placeholder="Hora" required>  
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <input type="text" name="hora" class="form-control" placeholder="Hora" required>  
-                        </div>
-
-                        <div class="form-group">
-                            <label for="grupo">Grupo</label>
-                            <select name="grupo" class="form-control" required>
+                        <div class="mb-3">
+                            <label for="grupo" class="form-label" style="color: #000; font-weight: bold;">Grupo</label>
+                            <select name="grupo" class="form-control" style="background-color: #fff;" required>
                                 <option value="">Selecciona el grupo</option>
                                 <option value="KELO">KELO</option>
                                 <option value="PULP">PULP</option>
                                 <option value="CUYA">CUYA</option>
                             </select>
                         </div>
-
-                        <div class="form-group">
-                            <input type="text" name="direccion" class="form-control" placeholder="Direccion" required>  
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label" style="color: #000; font-weight: bold;">Direccion</label>
+                            <input type="text" name="direccion" class="form-control" style="background-color: #fff;" placeholder="Direccion" required>  
                         </div>
-
-                        <div class="form-group">
-                            <label for="zona">Zona</label>
-                            <select name="zona" class="form-control" required>
+                        <div class="mb-3">
+                            <label for="zona" class="form-label" style="color: #000; font-weight: bold;">Zona</label>
+                            <select name="zona" class="form-control" style="background-color: #fff;" required>
                                 <option value="">Selecciona la zona</option>
                                 <option value="1A">1A</option>
                                 <option value="1B">1B</option>
@@ -115,16 +113,17 @@
                                 <option value="5B">5B</option>
                             </select>
                         </div>
-
-
-                        <div class="form-group">
-                            <input type="text" name="efectivo" class="form-control" placeholder="Efectivo" required>  
+                        <div class="mb-3">
+                            <label for="efectivo" class="form-label" style="color: #000; font-weight: bold;">Efectivo</label>
+                            <input type="text" name="efectivo" class="form-control" style="background-color: #fff;" placeholder="Efectivo" required>  
                         </div>
-                        <div class="form-group">
-                            <textarea name="resumen" rows="2" placeholder="Resumen"></textarea>  
+                        <div class="mb-3">
+                            <label for="resumen" class="form-label" style="color: #000; font-weight: bold;">Resumen</label>
+                            <textarea name="resumen" rows="2" class="form-control" style="background-color: #fff;" placeholder="Resumen"></textarea>  
                         </div>
-                        <div class="form-group">  
-                            <input type="file" name="archivo" class="form-control" accept="image/*"> <!-- Acepta solo imágenes --> 
+                        <div class="mb-3">
+                            <label for="archivo" class="form-label" style="color: #000; font-weight: bold;">Archivo adjunto</label>
+                            <input type="file" name="archivo" class="form-control" style="background-color: #fff;" accept="image/*"> <!-- Acepta solo imágenes --> 
                         </div>
                         <input type="submit" class="btn btn-success btn-block" name="registrar" value="Registrar">
                     </form>
@@ -132,5 +131,7 @@
             </div>
         </div>
     </div>
+</div>
 
-<?php include("includes/footer.php") ?> 
+<?php include("includes/footer.php") ?>
+
