@@ -36,25 +36,36 @@
         .download-button:hover {
             background-color: #0056b3; /* Cambio de color al pasar el ratón */
         }
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 22px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="image-container">
-        <h2 class="image-title">Esta es la evidencia del incidente</h2>
         <?php
         if(isset($_GET['ruta'])){
             $ruta_archivo = $_GET['ruta'];
-            echo "<img src='$ruta_archivo' alt='Imagen'><br>";
+            if(file_exists($ruta_archivo)) {
+                echo "<h2 class='image-title'>Esta es la evidencia del incidente</h2>";
+                echo "<img src='$ruta_archivo' alt='Imagen'><br>";
 
-            // Obtener el nombre del archivo
-            $nombre_archivo = basename($ruta_archivo);
+                // Obtener el nombre del archivo
+                $nombre_archivo = basename($ruta_archivo);
 
-            // Mostrar enlace de descarga
-            echo "<a href='$ruta_archivo' download='$nombre_archivo' class='download-button'>Descargar archivo</a>";
-        } else {
-            echo "Ruta del archivo no proporcionada";
+                // Mostrar enlace de descarga
+                echo "<a href='$ruta_archivo' download='$nombre_archivo' class='download-button'>Descargar archivo</a>";
+            } else {
+                echo "<div class='error-message'>No existe el archivo seleccionado en la base de datos.</div>";
+            }
         }
         ?>
     </div>
@@ -62,5 +73,8 @@
 
 </body>
 </html>
+
+
+
 
 
