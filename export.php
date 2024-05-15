@@ -29,7 +29,11 @@ if(isset($_GET['fecha_inicio']) && isset($_GET['fecha_fin']) && !empty($_GET['fe
     $sheet->setCellValue('B1', 'Delito');
     $sheet->setCellValue('C1', 'Fecha');
     $sheet->setCellValue('D1', 'Hora');
-    $sheet->setCellValue('E1', 'Zona');
+    $sheet->setCellValue('E1', 'Grupo');
+    $sheet->setCellValue('F1', 'Direccion');
+    $sheet->setCellValue('G1', 'Zona');
+    $sheet->setCellValue('H1', 'Efectivo');
+    $sheet->setCellValue('I1', 'Resumen');
 
     // Iterar sobre los resultados de la consulta y agregar los datos a la hoja de cálculo
     $rowIndex = 2;
@@ -38,26 +42,25 @@ if(isset($_GET['fecha_inicio']) && isset($_GET['fecha_fin']) && !empty($_GET['fe
         $sheet->setCellValue('B' . $rowIndex, $row['delito']);
         $sheet->setCellValue('C' . $rowIndex, $row['fecha']);
         $sheet->setCellValue('D' . $rowIndex, $row['hora']);
-        $sheet->setCellValue('E' . $rowIndex, $row['zona']);
+        $sheet->setCellValue('E' . $rowIndex, $row['grupo']);
+        $sheet->setCellValue('F' . $rowIndex, $row['direccion']);
+        $sheet->setCellValue('G' . $rowIndex, $row['zona']);
+        $sheet->setCellValue('H' . $rowIndex, $row['efectivo']);
+        $sheet->setCellValue('I' . $rowIndex, $row['resumen']);
         $rowIndex++;
     }
 
-    // Crear un objeto Writer para guardar la hoja de cálculo en un archivo
+    // Crear un objeto Writer para enviar el contenido al navegador
     $writer = new Xlsx($spreadsheet);
     $filename = 'registros_' . $fecha_inicio . '_to_' . $fecha_fin . '.xlsx';
 
-    // Ruta completa de la carpeta Descargas
-    $download_folder = 'C:/Users/Administrador/Downloads/'; // Actualiza esta ruta con la ruta de tu carpeta Descargas
-
-    // Guardar el archivo en la carpeta Descargas
-    $file_path = $download_folder . $filename;
-    $writer->save($file_path);
-
-    // Proporcionar un enlace directo para que el usuario descargue el archivo
+    // Establecer encabezados HTTP para la descarga del archivo
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment;filename="' . $filename . '"');
     header('Cache-Control: max-age=0');
-    readfile($file_path);
+
+    // Enviar el contenido al navegador
+    $writer->save('php://output');
     exit;
 } else {
     // Si no se encontraron las fechas, redirigir a la página de filtrado con un mensaje de advertencia
